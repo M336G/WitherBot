@@ -20,8 +20,7 @@ class aclient(Client):
         print(f"Logged in as {self.user}.")
         await client.change_presence(activity=Game(name="with command blocks"))
         tree.togetherControl = await DiscordTogether(TOKEN)
-        channel = client.get_channel(1100118723072897055)
-        #channel = client.get_channel(1040593202060730519)
+        channel = client.get_channel(1040593202060730519)
         embed = Embed(title=" ",description=f"**``{self.user}, has appeared.``\nPing: {round (client.latency * 1000)} ms**")
         log(f"(SUCCESS) {self.user} has been STARTED. Ping: {round (client.latency * 1000)} ms")
         await channel.send(" ", embed=embed)
@@ -29,15 +28,15 @@ class aclient(Client):
 client = aclient()
 tree = CommandTree(client)
 
-# Read each command in commands folder
+# Read each command in the commands folder
 for command in listdir("commands"):
     if (not(isfile(join("commands", command)))):
         continue
             
     # Command
-    module = __import__("commands." + command[:-3], fromlist=["commandFunction"])  # Retirez l'extension .py
+    module = __import__("commands." + command[:-3], fromlist=["commandFunction"])  # Remove the .py extension
     commandObject = client.commands[command] = globals()[module.__name__] = module
-    #CommandObject contains all informations to add command to discord
+    # CommandObject contains all the informations to add the commands to Discord
     commandObject.commandFunction(tree, client)
 
 # RSame thing for context menu
@@ -46,10 +45,9 @@ for command in listdir("context_menu"):
         continue
             
     # Command
-    module = __import__("context_menu." + command[:-3], fromlist=["commandFunction"])  # Retirez l'extension .py
+    module = __import__("context_menu." + command[:-3], fromlist=["commandFunction"])  # Remove the .py extension
     commandObject = client.context_menus[command] = globals()[module.__name__] = module
-    #CommandObject contains all informations to add command to discord
+    # CommandObject contains all the informations to add the commands to Discord
     commandObject.commandFunction(tree, client)
-
 
 client.run(TOKEN)
