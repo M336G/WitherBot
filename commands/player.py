@@ -86,7 +86,7 @@ def commandFunction(tree, client):
                 embed = Embed(title=f"**Online and playing**",description=f'**Game**: ``{game}\n``**Guild:** ``{guild}``\n**Rank:** ``{rank}``\n**Language:** ``{language}``\n**First Login:** {first_login}\n**Last Login:** {last_login}',colour=2067276)
                 embed.set_author(name=f"{minecraft_username}'s Stats", icon_url=f"https://starlightskins.lunareclipse.studio/skin-render/pixel/{uuid}/face")
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/skin-render/pixel/{uuid}/face")
-                embed.set_footer(text=f"Wither Bot", icon_url="https://static.wikia.nocookie.net/minecraft_fr_gamepedia/images/a/aa/Wither.png")
+                embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
                 await interaction.channel.send(" ",embed=embed)
 
@@ -98,7 +98,7 @@ def commandFunction(tree, client):
                 embed = Embed(title="Offline or Invisible",description=f'**Guild:** ``{guild}``\n**Rank:** ``{rank}``\n**Language:** ``{language}``\n**First Login:** {first_login}\n**Last Login:** {last_login}',colour=9807270)
                 embed.set_author(name=f"{minecraft_username}'s Stats", icon_url=f"https://starlightskins.lunareclipse.studio/skin-render/pixel/{uuid}/face")
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/skin-render/pixel/{uuid}/face")
-                embed.set_footer(text=f"Wither Bot", icon_url="https://static.wikia.nocookie.net/minecraft_fr_gamepedia/images/a/aa/Wither.png")
+                embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
                 await interaction.channel.send(" ",embed=embed)
 

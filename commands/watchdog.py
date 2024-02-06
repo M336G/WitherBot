@@ -20,7 +20,7 @@ def commandFunction(tree, client):
             await interaction.response.send_message(" ",embed=embed, ephemeral=True)
             embed = Embed(title=f"**Watchdog Stats**",description=f'> **Total players banned by Watchdog in the last minute:** ``{res["watchdog_lastMinute"]}``\n> **Total players banned by Watchdog today:** ``{res["watchdog_rollingDaily"]}``\n> **Total players banned by Watchdog:** ``{res["watchdog_total"]}``\n\n> **Total players banned by Hypixel Staff Members today:** ``{res["staff_rollingDaily"]}``\n> **Total players banned by Hypixel Staff Members:** ``{res["staff_total"]}``')
             embed.set_thumbnail(url=f"https://yt3.googleusercontent.com/ytc/AIf8zZSv_62EYjr0w3lqr0PydI8vBsdscbUlMCYyWghH6g=s176-c-k-c0x00ffffff-no-rj")
-            embed.set_footer(text=f"Wither Bot", icon_url="https://static.wikia.nocookie.net/minecraft_fr_gamepedia/images/a/aa/Wither.png")
+            embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
             embed.timestamp = datetime.now()
             await interaction.channel.send(" ",embed=embed)
 
