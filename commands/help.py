@@ -1,52 +1,75 @@
-from discord import Interaction, Embed, Member, Role, ButtonStyle
-from discord.app_commands import default_permissions
+from discord import Interaction, Embed, Member, Role, ButtonStyle 
+from discord.app_commands import default_permissions, ContextMenu, CommandTree
 from discord.ui import Button, View
 from util.functions import log
 
-def commandFunction(tree, client):
+commandsDetails:object = {}
+
+def commandFunction(tree:CommandTree, client):
     @tree.command(name="help",description="Show all the commands")
     async def helpCommand(interaction: Interaction):
         
-        #D Give an array of all commands
-        commands:[] = tree.get_commands()
-        commandsDetails:object = {}
-        for elt in commands:
-            commandsDetails[elt.name] = elt.description
+        if len(commandsDetails) <= 0:
+            #D Give an array of all commands
+            commands:[] = await tree.fetch_commands()
+            if commands == None:
+                commands = tree.get_commands()
+            for elt in commands:
+                if isinstance(elt, ContextMenu):
+                    continue
+
+                id:int = 0
+                description:str = ""
+                try:
+                    id = elt.id
+                    description = elt.description
+                except AttributeError:
+                    id = id
+                    description = description
+                
+                commandsDetails[elt.name] = {"description": elt.description, "id": id}
+
+        generalCommandList = ["hello", "ping", "credits", "youtube", "vote" ]
+        moderationCommandList = [ "ban", "kick", "say", "addrole", "removerole", "timeout", "unmute"]
+        hypixelCommandList = ["skyblock_ehp", "skyblock_damage_reduction", "skyblock_true_damage_reduction", "skyblock_base_hp_regeneration", "skyblock_dungeons_requirement", "skyblock_random_item","player", "watchdog"] 
+        minecraftCommandList = [ "modrinth", "minecraft_random_item", "minecraft_random_block"]
+
+        def getFieldContentCommand(name:str):
+            response:[] = [f"/{name}", "", False]
+
+            command = commandsDetails[name]
+            if not(command == None): 
+                id:int = 0
+                description:str = ""
+                try:
+                    id = command['id']
+                    description = command['description']
+                except AttributeError:
+                    id = id
+                    description = description
+                
+                response = [f"</{name}:{id}>", f"\n{description}", False]
+            return response
+
+        def addFieldToEmbed(embed, commandList): 
+            for commandName in commandList:
+                commandAttribute:[] = getFieldContentCommand(commandName)
+                embed.add_field(name=commandAttribute[0], value=commandAttribute[1], inline=commandAttribute[2])
+
 
         embed = Embed(title="Bot commands",description="")
         embed.add_field(name="\n__General__", value="", inline=False)
-        embed.add_field(name="\n/hello", value=f"\n{commandsDetails["hello"]}", inline=False)
-        embed.add_field(name="\n/ping", value=f"\n{commandsDetails["ping"]}", inline=False)
-        embed.add_field(name="\n/credits", value=f"\n{commandsDetails["credits"]}", inline=False)
-        embed.add_field(name="\n/youtube", value=f"\n{commandsDetails["youtube"]}", inline=False)
-        embed.add_field(name="\n/invite", value=f"\n{commandsDetails["invite"]}", inline=False)
-        embed.add_field(name="\n/vote", value=f"\n{commandsDetails["vote"]}\n", inline=False)
+        addFieldToEmbed(embed, generalCommandList)
 
         embed.add_field(name="\n__Moderation__", value="", inline=False)
-        embed.add_field(name="\n/ban", value=f"\n{commandsDetails["ban"]}", inline=False)
-        embed.add_field(name="\n/kick", value=f"\n{commandsDetails["kick"]}", inline=False)
-        embed.add_field(name="\n/say", value=f"\n{commandsDetails["say"]}", inline=False)
-        embed.add_field(name="\n/addrole", value=f"\n{commandsDetails["addrole"]}", inline=False)
-        embed.add_field(name="\n/removerole", value=f"\n{commandsDetails["removerole"]}", inline=False)
-        embed.add_field(name="\n/timeout", value=f"\n{commandsDetails["timeout"]}", inline=False)
-        embed.add_field(name="\n/unmute", value=f"\n{commandsDetails["unmute"]}\n", inline=False)
-
-        embed.add_field(name="\n__Hypixel / Skyblock__", value="", inline=False)
-        embed.add_field(name="\n/skyblock_ehp", value=f"\n{commandsDetails["skyblock_ehp"]}", inline=False)
-        embed.add_field(name="\n/skyblock_damage_reduction", value=f"\n{commandsDetails["skyblock_damage_reduction"]}", inline=False)
-        embed.add_field(name="\n/skyblock_true_damage_reduction", value=f"\n{commandsDetails["skyblock_true_damage_reduction"]}", inline=False)
-        embed.add_field(name="\n/skyblock_base_mana_regeneration", value=f"\n{commandsDetails["skyblock_base_mana_regeneration"]}", inline=False)
-        embed.add_field(name="\n/skyblock_base_hp_regeneration", value=f"\n{commandsDetails["skyblock_base_hp_regeneration"]}", inline=False)
-        embed.add_field(name="\n/skyblock_dungeons_requirement", value=f"\n{commandsDetails["skyblock_dungeons_requirement"]}", inline=False)
-        embed.add_field(name="\n/skyblock_random_item", value=f"\n{commandsDetails["skyblock_random_item"]}", inline=False)
+        addFieldToEmbed(embed, moderationCommandList)
 
         embed2 = Embed(title=" ",description="")
-        embed2.add_field(name="\n/player", value=f"\n{commandsDetails["player"]}", inline=False)
-        embed2.add_field(name="\n/watchdog", value=f"\n{commandsDetails["watchdog"]}\n", inline=False)
+        embed2.add_field(name="\n__Hypixel / Skyblock__", value="", inline=False)
+        addFieldToEmbed(embed2, hypixelCommandList)
+
         embed2.add_field(name="\n__Minecraft__", value="", inline=False)
-        embed2.add_field(name="\n/modrinth", value=f"\n{commandsDetails["modrinth"]}", inline=False)
-        embed2.add_field(name="\n/minecraft_random_item", value=f"\n{commandsDetails["minecraft_random_item"]}", inline=False)
-        embed2.add_field(name="\n/minecraft_random_block", value=f"\n{commandsDetails["minecraft_random_block"]}", inline=False)
+        addFieldToEmbed(embed2, minecraftCommandList)
 
         button = Button(label='Vote for the bot on top.gg', style=ButtonStyle.url, url='https://top.gg/bot/1039238934682665030/vote')
         button2 = Button(label='Invite the bot on your server', style=ButtonStyle.url, url='https://discord.com/api/oauth2/authorize?client_id=1039238934682665030&permissions=1099780130822&scope=bot')
