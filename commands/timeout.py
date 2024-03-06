@@ -1,4 +1,4 @@
-from discord import Interaction, Embed, Member, Role
+from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions
 from util.functions import log
 from datetime import timedelta
@@ -14,13 +14,16 @@ def commandFunction(tree, client):
         if interaction.user.id == user.id:
             embed = Embed(title=" ",description=f":x: **You cannot mute yourself!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
+            
 
             log(f"(FAIL) {interaction.user} tried to MUTE himself on {interaction.user.guild} ({interaction.user.guild.id})")
+            return
         elif 1039238934682665030 == user.id:
             embed = Embed(title=" ",description=f":x: **You cannot mute me!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
 
             log(f"(FAIL) {interaction.user} tried to MUTE the bot on {interaction.user.guild} ({interaction.user.guild.id})")
+            return
         try:
             if reason == None:
                 await user.timeout(timedeltaTimeout,reason=reason)

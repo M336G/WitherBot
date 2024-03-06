@@ -1,7 +1,5 @@
-from discord import Interaction, Embed, Member, Role, ButtonStyle
+from discord import Interaction, Embed, ButtonStyle
 from discord.ui import Button, View
-from discord.app_commands import default_permissions
-from util.functions import log
 
 def commandFunction(tree, client):
     @tree.command(name="vote",description="Vote for the bot on top.gg!")

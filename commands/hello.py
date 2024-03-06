@@ -1,5 +1,4 @@
-from discord import Interaction, Embed, Member, Role
-from discord.app_commands import default_permissions
+from discord import Interaction
 from util.functions import log
 
 def commandFunction(tree, client):

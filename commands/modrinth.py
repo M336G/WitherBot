@@ -1,5 +1,4 @@
-from discord import Interaction, Embed, Member, Role, ButtonStyle
-from discord.app_commands import default_permissions
+from discord import Interaction, Embed, ButtonStyle
 from util.functions import log
 from requests import get as requestGet
 from datetime import datetime

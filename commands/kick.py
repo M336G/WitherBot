@@ -1,4 +1,4 @@
-from discord import Interaction, Embed, Member, Role
+from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions
 from util.functions import log
 
@@ -11,11 +11,13 @@ def commandFunction(tree, client):
             await interaction.response.send_message(" ",embed=embed)
 
             log(f"(FAIL) {interaction.user} tried to KICK himself on {interaction.user.guild} ({interaction.user.guild.id})")
+            return
         elif 1039238934682665030 == user.id:
             embed = Embed(title=" ",description="<:x:1039888272761049179> **You cannot kick me!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
 
             log(f"(FAIL) {interaction.user} tried to KICK the bot on {interaction.user.guild} ({interaction.user.guild.id})")
+            return
         else:
             try:
                 if reason == None:

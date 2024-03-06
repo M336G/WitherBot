@@ -1,6 +1,5 @@
 from discord.ui import Modal, TextInput
 from discord import Embed, TextStyle, Interaction, Member
-from datetime import timedelta 
 from util.functions import log
 
 class ban_form(Modal, title='Ban'):

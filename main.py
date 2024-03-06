@@ -1,6 +1,6 @@
 from discord_together import DiscordTogether
-from discord import Client, Intents, Game, Embed 
-from discord.app_commands import CommandTree, default_permissions
+from discord import Client, Intents, Game, Embed, AllowedMentions
+from discord.app_commands import CommandTree
 from util.resources import TOKEN
 from util.functions import log 
 from os import listdir
@@ -8,7 +8,7 @@ from os.path import isfile, join
 
 class aclient(Client):
     def __init__(self):
-        super().__init__(intents=Intents.default())
+        super().__init__(intents=Intents.default(), allowed_mentions=AllowedMentions(roles=True, users=True, everyone=False))
         self.synced = False
         self.commands = {}
         self.context_menus = {}

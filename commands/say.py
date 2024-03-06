@@ -1,4 +1,4 @@
-from discord import Interaction, Embed, Member, Role
+from discord import Interaction, Embed
 from discord.app_commands import default_permissions
 from util.functions import log
 

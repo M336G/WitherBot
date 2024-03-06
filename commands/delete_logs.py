@@ -1,6 +1,6 @@
-from discord import Interaction, Embed, Member, Role
+from discord import Interaction, Embed
 from discord.app_commands import default_permissions
-from util.functions import log
+from datetime import date, datetime
 
 def commandFunction(tree, client):
     @tree.command(name="delete_logs",description="A command used by M336 to clear the logs")
@@ -14,7 +14,9 @@ def commandFunction(tree, client):
             await interaction.response.send_message(" ",embed=embed, ephemeral=True)
         else:
             try:
-                log(f"(RESET) Logs have been RESET")
+                f = open("logs.txt", "w")
+                f.write(f"[{date.today().strftime('%d/%m/%Y')} {datetime.now().strftime('%H:%M:%S')}] (RESET) Logs have been RESET\n")
+                f.close()
                 embed = Embed(title=" ",description="**Logs have been reset!**",colour=2067276)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
             except:
