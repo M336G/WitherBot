@@ -1,6 +1,4 @@
 # WitherBot
-A Discord Bot inspired from the SkyBlock minigame on Hypixel
-
 Official repository for WitherBot, a Discord bot with useful features for QoL, Moderation, Minecraft, Hypixel SkyBlock and more..
 
 ----------
