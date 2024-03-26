@@ -4,7 +4,7 @@ from util.functions import log
 
 def commandFunction(tree, client):
     @tree.command(name= "say", description= "Say something")
-    @default_permissions(manage_channels = True)
+    @default_permissions(administrator = True)
     async def sayCommand(interaction: Interaction, message: str):
         embed = Embed(title=" ",description=f"**Message sent in <#{interaction.channel.id}>**", colour=5763719)
         await interaction.response.send_message(" ",embed=embed, ephemeral=True)
