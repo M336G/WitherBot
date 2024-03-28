@@ -29,7 +29,7 @@ def commandFunction(tree:CommandTree, client):
                 
                 commandsDetails[elt.name] = {"description": elt.description, "id": id}
 
-        generalCommandList = ["hello", "ping", "credits", "youtube", "vote", "random_number"]
+        generalCommandList = ["hello", "ping", "credits", "youtube", "vote", "random_number", "reminder"]
         moderationCommandList = [ "ban", "kick", "say", "addrole", "removerole", "timeout", "unmute"]
         hypixelCommandList = ["skyblock_ehp", "skyblock_damage_reduction", "skyblock_true_damage_reduction", "skyblock_base_hp_regeneration", "skyblock_dungeons_requirement", "skyblock_random_item","player", "watchdog"] 
         minecraftCommandList = [ "modrinth", "minecraft_random_item", "minecraft_random_block"]
