@@ -6,6 +6,27 @@ from util.functions import log
 from os import listdir
 from os.path import isfile, join
 
+firstCon:bool = False
+async def first_connection(self):
+    global firstCon
+    if firstCon == False:
+        if not self.synced:
+                await tree.sync()
+                self.synced = True
+        print(f"Logged in as {self.user}.")
+        await client.change_presence(activity=Game(name="with command blocks"))
+        tree.togetherControl = await DiscordTogether(TOKEN)
+        
+        log(f"(SUCCESS) {self.user} has been STARTED. Ping: {round (client.latency * 1000)} ms")
+        
+        # Send Message
+        channel = client.get_channel(1040593202060730519)
+        if channel != None:
+            embed = Embed(title=" ",description=f"**``{self.user}, has appeared.``\nPing: {round (client.latency * 1000)} ms**")
+            await channel.send(" ", embed=embed)
+        
+        firstCon = True
+
 class aclient(Client):
     def __init__(self):
         super().__init__(intents=Intents.default(), allowed_mentions=AllowedMentions(roles=True, users=True, everyone=False))
@@ -14,16 +35,7 @@ class aclient(Client):
         self.context_menus = {}
     
     async def on_ready(self):
-        if not self.synced:
-            await tree.sync()
-            self.synced = True
-        print(f"Logged in as {self.user}.")
-        await client.change_presence(activity=Game(name="with command blocks"))
-        tree.togetherControl = await DiscordTogether(TOKEN)
-        channel = client.get_channel(1040593202060730519)
-        embed = Embed(title=" ",description=f"**``{self.user}, has appeared.``\nPing: {round (client.latency * 1000)} ms**")
-        log(f"(SUCCESS) {self.user} has been STARTED. Ping: {round (client.latency * 1000)} ms")
-        await channel.send(" ", embed=embed)
+        await first_connection(self)
 
 client = aclient()
 tree = CommandTree(client)
