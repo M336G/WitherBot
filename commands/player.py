@@ -90,7 +90,7 @@ def commandFunction(tree, client):
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
-                await interaction.response.edit_message(" ",embed=embed)
+                await interaction.response.edit_message(embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} used /player")
                 return
@@ -102,7 +102,7 @@ def commandFunction(tree, client):
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
-                await interaction.response.edit_message(" ",embed=embed)
+                await interaction.response.edit_message(embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} used /player")
                 return
