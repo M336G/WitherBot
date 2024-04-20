@@ -45,9 +45,11 @@ def commandFunction(tree, client):
             log(f"(SUCCESS) {interaction.user} used /status (successfully sent logs)")
             return
         else:
-            embed = Embed(title=f"{client.user.name}'s Status",description=f"", colour=2067276)
+            embed = Embed(title=f"",description=f"", colour=2067276)
+            embed.set_author(name=f"{client.user.name}'s Status", icon_url=f"{client.user.avatar}")
             embed.add_field(name="> Response time", value=f"``{round (client.latency * 1000)} ms``", inline=True)
             embed.add_field(name="> Server Count", value=f"``{str(len(client.guilds))}``", inline=True)
+            embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
             await interaction.response.send_message(" ",embed=embed)
             log(f"(SUCCESS) {interaction.user} used /status")
             return
