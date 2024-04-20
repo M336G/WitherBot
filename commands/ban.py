@@ -27,7 +27,7 @@ def commandFunction(tree, client):
                         embed = Embed(title=f"**You have been banned from ``{interaction.guild.name}``!**",description="", colour=15548997)
                         await user.send(" ",embed=embed)
                     except:
-                        continue
+                        embed2 = Embed(title="")
                     await user.ban(reason=reason)
                     embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{user}`` has been banned from the server!**", colour=2067276)
                     await interaction.response.send_message(" ",embed=embed)
@@ -40,7 +40,7 @@ def commandFunction(tree, client):
                         embed = Embed(title=f"**You have been banned from ``{interaction.guild.name}``!**\n``Reason: {reason}``",description="", colour=15548997)
                         await user.send(" ",embed=embed)
                     except:
-                        continue
+                        embed2 = Embed(title="")
                     await user.ban(reason=reason)
                     embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{user}`` has been banned from the server!**\n**``Reason: {reason}``**", colour=2067276)
                     await interaction.response.send_message(" ",embed=embed)
