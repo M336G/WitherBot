@@ -83,26 +83,22 @@ def commandFunction(tree, client):
                 guild = "NONE"
 
             if res2["session"]["online"] == True:
-                embed = Embed(title=" ",description="**Getting player's data from the API, please wait...**",colour=9807270)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
                 embed = Embed(title=f"**Online and playing**",description=f'**Game**: ``{game}\n``**Guild:** ``{guild}``\n**Rank:** ``{rank}``\n**Language:** ``{language}``\n**First Login:** {first_login}\n**Last Login:** {last_login}',colour=2067276)
                 embed.set_author(name=f"{minecraft_username}'s Stats", icon_url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
-                await interaction.response.edit_message(" ", embed=embed)
+                await interaction.response.send_message(" ", embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} used /player")
                 return
             else:
-                embed = Embed(title=" ",description="**Getting player's data from the API, please wait...**",colour=9807270)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
                 embed = Embed(title="Offline or Invisible",description=f'**Guild:** ``{guild}``\n**Rank:** ``{rank}``\n**Language:** ``{language}``\n**First Login:** {first_login}\n**Last Login:** {last_login}',colour=9807270)
                 embed.set_author(name=f"{minecraft_username}'s Stats", icon_url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_thumbnail(url=f"https://starlightskins.lunareclipse.studio/render/pixel/{uuid}/face")
                 embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
                 embed.timestamp = datetime.now()
-                await interaction.response.edit_message(" ", embed=embed)
+                await interaction.response.send_message(" ", embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} used /player")
                 return
