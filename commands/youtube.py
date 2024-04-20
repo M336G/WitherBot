@@ -1,8 +1,11 @@
 from discord import Interaction, Embed
+from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from util.functions import log
 
 def commandFunction(tree, client):
     @tree.command(name= "youtube", description= "Watch YouTube Together")
+    @allowed_installs(guilds=True, users=False)
+    @allowed_contexts(guilds=True, dms=False, private_channels=True)
     async def youtubeCommand(interaction: Interaction):
         try:
             link = await tree.togetherControl.create_link(interaction.user.voice.channel.id, 'youtube')

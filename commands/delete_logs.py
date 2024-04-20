@@ -1,9 +1,11 @@
 from discord import Interaction, Embed
-from discord.app_commands import default_permissions
+from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from datetime import date, datetime
 
 def commandFunction(tree, client):
     @tree.command(name="delete_logs",description="A command used by M336 to clear the logs")
+    @allowed_installs(guilds=True, users=False)
+    @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(administrator=True)
     async def deleteLogsCommand(interaction: Interaction):
         if interaction.user.id != 629711559899217950:

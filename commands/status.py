@@ -1,0 +1,54 @@
+from discord import Interaction, Embed, File
+from discord.app_commands import allowed_contexts, allowed_installs
+from util.functions import log
+from datetime import date, datetime
+
+def commandFunction(tree, client):
+    @tree.command(name= "status", description="Display the bot's status")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def ping(interaction: Interaction, options: str = ""):
+        if options == "logs:delete":
+            if interaction.user.id != 629711559899217950:
+                embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                return
+            try:
+                f = open("logs.txt", "w")
+                f.write(f"[{date.today().strftime('%d/%m/%Y')} {datetime.now().strftime('%H:%M:%S')}] (RESET) Logs have been RESET\n")
+                f.close()
+                embed = Embed(title=" ",description="**Logs have been deleted!**",colour=2067276)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(SUCCESS) {interaction.user} used /status (successfully deleted logs)")
+                return
+            except:
+                embed = Embed(title=" ",description="**:x: An error has occured while trying to reset the logs**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (could not delete logs)")
+                return
+            
+        elif options == "logs":
+            if interaction.user.id != 629711559899217950:
+                embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                return
+            try:
+                logs = open(f"logs.txt", "rb")
+            except:
+                embed = Embed(title=" ",description="**:x: An error has occured while trying to reset the logs**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (could not retrieve logs)")
+                return
+            
+            await interaction.response.send_message(file=File(logs), ephemeral=True)
+            logs.close()
+            log(f"(SUCCESS) {interaction.user} used /status (successfully sent logs)")
+            return
+        else:
+            embed = Embed(title=f"{client.user.name}'s Status",description=f"", colour=2067276)
+            embed.add_field(name="> Response time", value=f"``{round (client.latency * 1000)} ms``", inline=True)
+            embed.add_field(name="> Server Count", value=f"``{str(len(client.guilds))}``", inline=True)
+            await interaction.response.send_message(" ",embed=embed)
+            log(f"(SUCCESS) {interaction.user} used /status")
+            return
+        

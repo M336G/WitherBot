@@ -1,4 +1,5 @@
 from discord import Interaction, Embed, ButtonStyle
+from discord.app_commands import allowed_contexts, allowed_installs
 from util.functions import log
 from requests import get as requestGet
 from datetime import datetime
@@ -6,6 +7,8 @@ from discord.ui import Button, View
 
 def commandFunction(tree, client):    
     @tree.command(name="modrinth",description="Search a project on Modrinth with its ID or its slug")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def modrinthCommand(interaction: Interaction, query: str):
         try:
             res = requestGet(

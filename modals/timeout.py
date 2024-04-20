@@ -40,7 +40,7 @@ class timeout_form(Modal, title='Timeout'):
         try:
             if self.input_0.value == "":
                 await self.member.timeout(timedeltaTimeout,reason=self.input_0.value)
-                await interaction.response.send_message(" ",embed=Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{self.member.id}> **for {days}d {hours}h {minutes}m {seconds}s**", colour=5763719))
+                await interaction.response.send_message(" ",embed=Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{self.member.id}> **for {days}d {hours}h {minutes}m {seconds}s**", colour=2067276))
                 log(f"(SUCCESS) {interaction.user} MUTED {self.member} for {days}d {hours}h {minutes}m {seconds}s on {interaction.user.guild} ({interaction.user.guild.id})")
                 try:
                     await self.member.send(" ",embed=Embed(title=f"**You have been muted on ``{interaction.guild.name}`` for {days}d {hours}h {minutes}m {seconds}s!**",description="", colour=15548997))
@@ -48,7 +48,7 @@ class timeout_form(Modal, title='Timeout'):
                     await interaction.channel.send(" ",embed=Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997))
             else:
                 await self.member.timeout(timedeltaTimeout,reason=self.input_0.value)
-                await interaction.response.send_message(" ",embed=Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{self.member.id}> **for {days}d {hours}h {minutes}m {seconds}s**\n``Reason: {self.input_0.value}``", colour=5763719))
+                await interaction.response.send_message(" ",embed=Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{self.member.id}> **for {days}d {hours}h {minutes}m {seconds}s**\n``Reason: {self.input_0.value}``", colour=2067276))
                 log(f"(SUCCESS) {interaction.user} MUTED {self.member} for {days}d {hours}h {minutes}m {seconds}s on {interaction.user.guild} ({interaction.user.guild.id}) and gave a reason")
                 try:
                     await self.member.send(" ",embed=Embed(title=f"**You have been muted on ``{interaction.guild.name}`` for {days}d {hours}h {minutes}m {seconds}s!**\n``Reason: {self.input_0.value}``",description="", colour=15548997))

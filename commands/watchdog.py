@@ -1,4 +1,5 @@
 from discord import Interaction, Embed
+from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from util.functions import log
 from requests import get as requestGet
 from util.resources import api_key
@@ -6,6 +7,8 @@ from datetime import datetime
 
 def commandFunction(tree, client):
     @tree.command(name="watchdog",description="Show the Hypixel Watchdog Anticheat's stats")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def watchdogCommand(interaction: Interaction):
         res = requestGet(
             url="https://api.hypixel.net/punishmentstats",

@@ -1,10 +1,12 @@
 from discord import Interaction, Embed, Member
-from discord.app_commands import default_permissions
+from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from util.functions import log
 from datetime import timedelta
 
 def commandFunction(tree, client):
     @tree.command(name= "timeout", description= "Mute someone on your Discord server")
+    @allowed_installs(guilds=True, users=False)
+    @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(moderate_members = True)
     async def timeoutCommand(interaction: Interaction, user:Member, reason: str = None, days:int = 0, hours: int = 0, minutes: int = 0, seconds: int = 0):
         time = days + hours + minutes + seconds
@@ -27,7 +29,7 @@ def commandFunction(tree, client):
         try:
             if reason == None:
                 await user.timeout(timedeltaTimeout,reason=reason)
-                embed = Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{user.id}> **for {days}d {hours}h {minutes}m {seconds}s**", colour=5763719)
+                embed = Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{user.id}> **for {days}d {hours}h {minutes}m {seconds}s**", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} MUTED {user} for {days}d {hours}h {minutes}m {seconds}s on {interaction.user.guild} ({interaction.user.guild.id})")
@@ -39,7 +41,7 @@ def commandFunction(tree, client):
                     await interaction.channel.send(" ",embed=embed)
             else:
                 await user.timeout(timedeltaTimeout,reason=reason)
-                embed = Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{user.id}> **for {days}d {hours}h {minutes}m {seconds}s**\n``Reason: {reason}``", colour=5763719)
+                embed = Embed(title=" ",description=f":white_check_mark: **Successfully muted** <@{user.id}> **for {days}d {hours}h {minutes}m {seconds}s**\n``Reason: {reason}``", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} MUTED {user} for {days}d {hours}h {minutes}m {seconds}s on {interaction.user.guild} ({interaction.user.guild.id}) and gave a reason")

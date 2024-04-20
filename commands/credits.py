@@ -1,10 +1,13 @@
 from discord import Interaction, Embed, ButtonStyle
+from discord.app_commands import allowed_contexts, allowed_installs
 from discord.ui import Button, View
 from util.functions import log
 from datetime import datetime
 
 def commandFunction(tree, client):
     @tree.command(name="credits",description="Show the credits of the bot")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def creditsCommand(interaction: Interaction):
         embed = Embed(title="Credits",description=f" ",colour=8359053)
         embed.add_field(name=" ", value="**<@1039238934682665030> has been created by <@629711559899217950>**", inline=False)

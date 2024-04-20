@@ -1,8 +1,11 @@
 from discord import Interaction, Embed
+from discord.app_commands import allowed_contexts, allowed_installs
 from util.functions import log
 
 def commandFunction(tree, client):
     @tree.command(name= "skyblock_dungeons_requirement", description= "Show the Catacombs Level Requirements in SkyBlock")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def skyblockDungeonsRequirementsCommand(interaction: Interaction):
         embed = Embed(title="Dungeon Levels Requirement",description="")
         embed.add_field(name="\n<:f0:1040298722103398440> Entrance", value="\nCombat Level 15", inline=False)

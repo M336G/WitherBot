@@ -1,5 +1,5 @@
 from discord import Interaction, Embed, Member, Role
-from discord.app_commands import allowed_contexts, allowed_installs, default_permissions
+from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from util.functions import log
 
 def commandFunction(tree, client):
@@ -10,7 +10,7 @@ def commandFunction(tree, client):
     async def addRoleCommand(interaction: Interaction, member: Member, role: Role):
         try:
             await member.add_roles(role)
-            embed = Embed(title=" ",description=f":white_check_mark: **Successfully added** ``{role}`` **to** ``{member}``**.**",colour=5763719)
+            embed = Embed(title=" ",description=f":white_check_mark: **Successfully added** ``{role}`` **to** ``{member}``**.**",colour=2067276)
             await interaction.response.send_message(" ",embed=embed)
             
             log(f"(SUCCESS) {interaction.user} ADDED a role to {member} on {interaction.user.guild} ({interaction.user.guild.id})")

@@ -1,10 +1,13 @@
 from discord import Interaction, Embed
+from discord.app_commands import allowed_contexts, allowed_installs
 from util.functions import log
 from requests import get as requestGet
 from random import randint
 
 def commandFunction(tree, client):
     @tree.command(name="skyblock_random_item",description="Choose a random SkyBlock item")
+    @allowed_installs(guilds=True, users=True)
+    @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def skyblockRandomItemCommand(interaction:Interaction):
         items = requestGet(
             url="https://api.hypixel.net/resources/skyblock/items"

@@ -16,7 +16,7 @@ class ban_form(Modal, title='Ban'):
                 except:
                     embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
                 await self.member.ban(reason=self.input_0.value)
-                embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{self.member}`` has been banned from the server!**", colour=5763719)
+                embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{self.member}`` has been banned from the server!**", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} BANNED {self.member} on {interaction.user.guild} ({interaction.user.guild.id})")
@@ -28,7 +28,7 @@ class ban_form(Modal, title='Ban'):
                 except:
                     embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
                 await self.member.ban(reason=self.input_0.value)
-                embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{self.member}`` has been banned from the server!**\n**``Reason: {self.input_0.value}``**", colour=5763719)
+                embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{self.member}`` has been banned from the server!**\n**``Reason: {self.input_0.value}``**", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
 
                 log(f"(SUCCESS) {interaction.user} BANNED {self.member} on {interaction.user.guild} ({interaction.user.guild.id}) and gave a reason")

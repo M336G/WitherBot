@@ -16,7 +16,7 @@ class kick_form(Modal, title='Kick'):
                 except:
                     embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
                 await self.member.kick(reason=self.input_0.value)
-                embed = Embed(title=" ",description=f"**``{self.member}`` has been kicked from the server!**", colour=5763719)
+                embed = Embed(title=" ",description=f"**``{self.member}`` has been kicked from the server!**", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
                 log(f"(SUCCESS) {interaction.user} BANNED {self.member} on {interaction.user.guild} ({interaction.user.guild.id})")
                 
@@ -27,7 +27,7 @@ class kick_form(Modal, title='Kick'):
                 except:
                     embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
                 await self.member.kick(reason=self.input_0.value)
-                embed = Embed(title=" ",description=f"**``{self.member}`` has been kicked from the server!**\n**``Reason: {self.input_0.value}``**", colour=5763719)
+                embed = Embed(title=" ",description=f"**``{self.member}`` has been kicked from the server!**\n**``Reason: {self.input_0.value}``**", colour=2067276)
                 await interaction.response.send_message(" ",embed=embed)
                 log(f"(SUCCESS) {interaction.user} KICKED {self.member} on {interaction.user.guild} ({interaction.user.guild.id}) and gave a reason")
         
