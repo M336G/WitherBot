@@ -50,6 +50,7 @@ def commandFunction(tree, client):
             embed.add_field(name="> Response time", value=f"``{round (client.latency * 1000)} ms``", inline=True)
             embed.add_field(name="> Server Count", value=f"``{str(len(client.guilds))}``", inline=True)
             embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
+            embed.timestamp = datetime.now()
             await interaction.response.send_message(" ",embed=embed)
             log(f"(SUCCESS) {interaction.user} used /status")
             return
