@@ -1,11 +1,12 @@
-from discord import Interaction, Embed, Member, Role, app_commands
+from discord import Interaction, Embed, Member, Role
+from discord.app_commands import allowed_contexts, allowed_installs, default_permissions
 from util.functions import log
 
-def commandFunction(tree:app_commands.CommandTree, client):
+def commandFunction(tree, client):
     @tree.command(name= "addrole", description= "Add a role to someone on your Discord server")
-    @app_commands.allowed_installs(guilds=True, users=False)
-    @app_commands.allowed_contexts(guilds=True, dms=False, private_channels=True)
-    @app_commands.default_permissions(manage_roles = True)
+    @allowed_installs(guilds=True, users=False)
+    @allowed_contexts(guilds=True, dms=False, private_channels=True)
+    @default_permissions(manage_roles = True)
     async def addRoleCommand(interaction: Interaction, member: Member, role: Role):
         try:
             await member.add_roles(role)
