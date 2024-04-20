@@ -16,15 +16,15 @@ async def first_connection(self):
         print(f"Logged in as {self.user}.")
         await client.change_presence(activity=Game(name="with command blocks"))
         tree.togetherControl = await DiscordTogether(TOKEN)
-        
+
         log(f"(SUCCESS) {self.user} has been STARTED. Ping: {round (client.latency * 1000)} ms")
-        
+
         # Send Message
         channel = client.get_channel(1040593202060730519)
         if channel != None:
             embed = Embed(title=" ",description=f"**``{self.user}, has appeared.``\nPing: {round (client.latency * 1000)} ms**")
             await channel.send(" ", embed=embed)
-        
+
         firstCon = True
 
 class aclient(Client):
