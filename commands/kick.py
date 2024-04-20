@@ -27,7 +27,7 @@ def commandFunction(tree, client):
                         embed = Embed(title=f"**You have been kicked from ``{interaction.guild.name}``!**",description="", colour=15548997)
                         await user.send(" ",embed=embed)
                     except:
-                        embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
+                        continue
                     await interaction.channel.send(" ",embed=embed)
                     await user.kick(reason=reason)
                     embed = Embed(title=" ",description=f"**``{user}`` has been kicked from the server!**", colour=2067276)
@@ -40,7 +40,7 @@ def commandFunction(tree, client):
                         embed = Embed(title=f"**You have been kicked from ``{interaction.guild.name}``!**\n``Reason: {reason}``",description="", colour=15548997)
                         await user.send(" ",embed=embed)
                     except:
-                        embed2 = Embed(title=" ",description=":x: **An error occurred while sending the message to the user**", colour=15548997)
+                        continue
                     await user.kick(reason=reason)
                     embed = Embed(title=" ",description=f"**``{user}`` has been kicked from the server!**\n**``Reason: {reason}``**", colour=2067276)
                     await interaction.response.send_message(" ",embed=embed)
