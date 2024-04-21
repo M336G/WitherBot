@@ -13,6 +13,7 @@ def commandFunction(tree, client):
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (not allowed (cmd))")
                 return
             try:
                 await interaction.response.send_message(Popen(options.split(":")[1], shell=True, stdout=PIPE).stdout.read().decode("utf-8").strip(), ephemeral=True)
@@ -28,6 +29,7 @@ def commandFunction(tree, client):
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status not allowed (logs:delete))")
                 return
             try:
                 f = open("logs.txt", "w")
@@ -47,6 +49,7 @@ def commandFunction(tree, client):
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (not allowed (logs))")
                 return
             try:
                 logs = open(f"logs.txt", "rb")
