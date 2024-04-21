@@ -78,7 +78,7 @@ def commandFunction(tree:CommandTree, client):
         view = View()
         view.add_item(button)
         view.add_item(button2)
-        await interaction.response.send_message(" ",embed=embed)
-        await interaction.channel.send(" ",embed=embed2, view=view)
+        await interaction.response.send_message(" ",embeds=(embed, embed2))
+        #await interaction.channel.send(" ",embed=embed2, view=view)
 
         log(f"(SUCCESS) {interaction.user} used /help")
