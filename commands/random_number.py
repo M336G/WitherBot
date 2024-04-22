@@ -12,7 +12,7 @@ def commandFunction(tree, client):
             await interaction.response.send_message(" ",embed=embed, ephemeral=True)
             log(f"(FAIL) {interaction.user} FAILED to use /random_number")
             return
-        if quaitity <= 0:
+        if quantity <= 0:
             embed = Embed(title=" ",description=f":x: **Please use numbers that are equal to or bigger than 1!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed, ephemeral=True)
             log(f"(FAIL) {interaction.user} FAILED to use /random_number")
