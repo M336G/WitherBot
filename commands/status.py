@@ -27,25 +27,6 @@ def commandFunction(tree, client):
                 log(f"(FAIL) {interaction.user} FAILED to use /status (could not execute a command)")
                 return
             
-        elif options == "update":
-            if interaction.user.id != 629711559899217950:
-                embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
-                log(f"(FAIL) {interaction.user} FAILED to use /status (not allowed (update))")
-                return
-            
-            if Popen("git pull", shell=True, stdout=PIPE).stdout.read().decode("utf-8").strip() == "Already up to date.":
-                embed = Embed(title=" ",description="**:x: The bot is already up to date!**",colour=15548997)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
-                log(f"(FAIL) {interaction.user} FAILED to use /status (already up to date)")
-                return
-            
-            embed = Embed(title=" ",description="**Updating...**", colour=15105570)
-            await interaction.response.send_message(" ",embed=embed, ephemeral=True)
-            log(f"(SUCCESS) {interaction.user} used /status (updating the bot)")
-            run("pm2 restart WitherBot", shell=True)
-            return
-            
         elif options == "logs:delete":
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
