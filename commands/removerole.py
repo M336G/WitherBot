@@ -1,6 +1,6 @@
 from discord import Interaction, Embed, Member, Role
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
-from util.functions import log
+from util.functions import log, logUser
 
 def commandFunction(tree, client):
     @tree.command(name= "removerole", description= "Remove a role from someone on your Discord server")
@@ -8,6 +8,7 @@ def commandFunction(tree, client):
     @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(manage_roles = True)
     async def removeRoleCommand(interaction: Interaction, member: Member, role: Role):
+        logUser(interaction.user.id)
         try:
             await member.remove_roles(role)
             embed = Embed(title=" ",description=f":white_check_mark: **Successfully removed** ``{role}`` **from** ``{member}``**.**",colour=2067276)

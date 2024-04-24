@@ -12,3 +12,7 @@ with open ("items.json", "r") as items_file:
 with open ("blocks.json", "r") as blocks_file:
     blocks_data = load(blocks_file)
     BLOCKS = blocks_data["blocks"]
+
+with open ("data.json", "r") as data_file:
+    data = load(data_file)
+    users = data["users"]

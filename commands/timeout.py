@@ -1,6 +1,6 @@
 from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
-from util.functions import log
+from util.functions import log, logUser
 from datetime import timedelta
 
 def commandFunction(tree, client):
@@ -9,6 +9,7 @@ def commandFunction(tree, client):
     @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(moderate_members = True)
     async def timeoutCommand(interaction: Interaction, user:Member, reason: str = None, days:int = 0, hours: int = 0, minutes: int = 0, seconds: int = 0):
+        logUser(interaction.user.id)
         time = days + hours + minutes + seconds
         if time == 0:
             days = 7

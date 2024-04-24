@@ -1,6 +1,6 @@
 from discord.ui import Modal, TextInput
 from discord import Embed, TextStyle, Interaction, Member
-from util.functions import log
+from util.functions import log, logUser
 
 class ban_form(Modal, title='Ban'):
     def __init__(self, member:Member):
@@ -8,6 +8,7 @@ class ban_form(Modal, title='Ban'):
         super().__init__()
     input_0 = TextInput(label="Ban Reason",placeholder="'None' if no reasons are provided",style=TextStyle.long, required=False)
     async def on_submit(self, interaction: Interaction):
+        logUser(interaction.user.id)
         try:
             if self.input_0.value == "":
                 try:

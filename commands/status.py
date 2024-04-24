@@ -1,14 +1,16 @@
 from discord import Interaction, Embed, File
 from discord.app_commands import allowed_contexts, allowed_installs
-from util.functions import log
+from util.resources import users
+from util.functions import log, logUser
 from datetime import date, datetime
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, run
 
 def commandFunction(tree, client):
     @tree.command(name= "status", description="Display the bot's status")
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def ping(interaction: Interaction, options: str = ""):
+        logUser(interaction.user.id)
         if "cmd:" in options:
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
@@ -25,11 +27,30 @@ def commandFunction(tree, client):
                 log(f"(FAIL) {interaction.user} FAILED to use /status (could not execute a command)")
                 return
             
+        elif options == "update":
+            if interaction.user.id != 629711559899217950:
+                embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (not allowed (update))")
+                return
+            
+            if Popen("git pull", shell=True, stdout=PIPE).stdout.read().decode("utf-8").strip() == "Already up to date.":
+                embed = Embed(title=" ",description="**:x: The bot is already up to date!",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAIL) {interaction.user} FAILED to use /status (already up to date)")
+                return
+            
+            embed = Embed(title=" ",description="**Updating...**")
+            await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+            log(f"(SUCCESS) {interaction.user} used /status (updating the bot)")
+            run("pm2 restart WitherBot")
+            return
+            
         elif options == "logs:delete":
             if interaction.user.id != 629711559899217950:
                 embed = Embed(title=" ",description="**:x: You cannot use this command!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
-                log(f"(FAIL) {interaction.user} FAILED to use /status not allowed (logs:delete))")
+                log(f"(FAIL) {interaction.user} FAILED to use /status (not allowed (logs:delete))")
                 return
             try:
                 f = open("logs.txt", "w")
@@ -68,9 +89,10 @@ def commandFunction(tree, client):
             embed.set_author(name=f"{client.user.name}'s Status", icon_url=f"{client.user.avatar}")
             embed.add_field(name="> Response time", value=f"``{round (client.latency * 1000)} ms``", inline=True)
             embed.add_field(name="> Server Count", value=f"``{str(len(client.guilds))}``", inline=True)
+            embed.add_field(name="> Unique users", value=f"``{str(len(users))}``", inline=True)
+            embed.set_thumbnail(url={client.user.avatar})
             embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
             embed.timestamp = datetime.now()
             await interaction.response.send_message(" ",embed=embed)
             log(f"(SUCCESS) {interaction.user} used /status")
             return
-        

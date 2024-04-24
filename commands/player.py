@@ -1,7 +1,7 @@
 from discord import Interaction, Embed
 from discord.app_commands import allowed_contexts, allowed_installs
 from requests import get as requestGet
-from util.functions import log
+from util.functions import log, logUser
 from util.resources import api_key
 from datetime import datetime
 
@@ -10,6 +10,7 @@ def commandFunction(tree, client):
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def playerCommand(interaction: Interaction, minecraft_username: str):
+        logUser(interaction.user.id)
         res = requestGet(url=f"https://api.mojang.com/users/profiles/minecraft/{minecraft_username}")
         
         if res.status_code != 200:

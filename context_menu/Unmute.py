@@ -1,12 +1,13 @@
 from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions
-from util.functions import log
+from util.functions import log, logUser
 from datetime import timedelta
 
 def commandFunction(tree, client):
     @tree.context_menu(name="Unmute")
     @default_permissions(moderate_members=True)
     async def show_stats(interaction:Interaction, user:Member):
+        logUser(interaction.user.id)
         days = 0
         hours = 0
         minutes = 0

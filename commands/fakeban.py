@@ -1,6 +1,6 @@
 from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
-from util.functions import log
+from util.functions import log, logUser
 
 def commandFunction(tree, client):
     @tree.command(name= "fakeban", description= "Fakeban someone on your Discord server")
@@ -8,6 +8,7 @@ def commandFunction(tree, client):
     @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(ban_members = True)
     async def fakeBanCommand(interaction: Interaction, user: Member, reason:str = None):
+        logUser(interaction.user.id)
         if reason == None:
             embed = Embed(title=" ",description=f"<:gregban:1039247298808520794> **``{user}`` has been banned from the server!**", colour=2067276)
             await interaction.response.send_message(" ",embed=embed)

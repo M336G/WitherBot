@@ -1,6 +1,6 @@
 from discord import Interaction, Embed
 from discord.app_commands import allowed_contexts, allowed_installs
-from util.functions import log
+from util.functions import log, logUser
 from util.resources import BLOCKS
 from random import randint
 
@@ -9,6 +9,7 @@ def commandFunction(tree, client):
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def minecraftRandomBlockCommand(interaction: Interaction):
+        logUser(interaction.user.id)
         random_block = BLOCKS[randint(0,len(BLOCKS) - 1)]
         i = 0
         block_list = random_block.split("_")

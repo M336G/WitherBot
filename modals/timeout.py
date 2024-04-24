@@ -1,7 +1,7 @@
 from discord.ui import Modal, TextInput
 from discord import Embed, TextStyle, Interaction, Member
 from datetime import timedelta 
-from util.functions import log
+from util.functions import log, logUser
 
 class timeout_form(Modal, title='Timeout'):
     def __init__(self, member:Member):
@@ -13,6 +13,7 @@ class timeout_form(Modal, title='Timeout'):
     input_3 = TextInput(label="Minutes",placeholder="How long will be the timeout (in minutes)",style=TextStyle.short, required=False)
     input_4 = TextInput(label="Seconds",placeholder="How long will be the timeout (in seconds)",style=TextStyle.short, required=False)
     async def on_submit(self, interaction: Interaction):
+        logUser(interaction.user.id)
         if self.input_1.value == "":
             days = 0
         else:

@@ -1,7 +1,7 @@
 from discord import Interaction, Embed, ButtonStyle 
 from discord.app_commands import ContextMenu, CommandTree, allowed_contexts, allowed_installs
 from discord.ui import Button, View
-from util.functions import log
+from util.functions import log, logUser
 
 commandsDetails:object = {}
 
@@ -10,7 +10,7 @@ def commandFunction(tree:CommandTree, client):
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     @tree.command(name="help",description="Show all the commands")
     async def helpCommand(interaction: Interaction):
-        
+        logUser(interaction.user.id)
         if len(commandsDetails) <= 0:
             #D Give an array of all commands
             commands:[] = await tree.fetch_commands()

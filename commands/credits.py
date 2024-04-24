@@ -1,7 +1,7 @@
 from discord import Interaction, Embed, ButtonStyle
 from discord.app_commands import allowed_contexts, allowed_installs
 from discord.ui import Button, View
-from util.functions import log
+from util.functions import log, logUser
 from datetime import datetime
 
 def commandFunction(tree, client):
@@ -9,6 +9,7 @@ def commandFunction(tree, client):
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def creditsCommand(interaction: Interaction):
+        logUser(interaction.user.id)
         embed = Embed(title="Credits",description=f" ",colour=8359053)
         embed.add_field(name=" ", value="**<@1039238934682665030> has been created by <@629711559899217950>**", inline=False)
         embed.add_field(name="Special Thanks", value="Special thanks to <@795048346955677748> for giving me the idea to create the bot and <@589349861493833751> for helping me optimize the code!", inline=False)

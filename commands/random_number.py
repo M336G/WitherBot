@@ -1,6 +1,6 @@
 from discord import Interaction, Embed
 from discord.app_commands import allowed_contexts, allowed_installs
-from util.functions import log
+from util.functions import log, logUser
 from random import randint
 
 def commandFunction(tree, client):
@@ -8,6 +8,7 @@ def commandFunction(tree, client):
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def randomNumberCommand(interaction: Interaction, start: int, stop: int):
+        logUser(interaction.user.id)
         if start == stop:
             embed = Embed(title=" ",description=f":x: **Please use different numbers for the start and stop entries!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed, ephemeral=True)
