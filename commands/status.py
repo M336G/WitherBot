@@ -35,7 +35,7 @@ def commandFunction(tree, client):
                 return
             
             if Popen("git pull", shell=True, stdout=PIPE).stdout.read().decode("utf-8").strip() == "Already up to date.":
-                embed = Embed(title=" ",description="**:x: The bot is already up to date!",colour=15548997)
+                embed = Embed(title=" ",description="**:x: The bot is already up to date!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)
                 log(f"(FAIL) {interaction.user} FAILED to use /status (already up to date)")
                 return
