@@ -1,4 +1,4 @@
-from discord import Interaction, Embed, TextChannel
+from discord import Interaction, Embed
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
 from util.functions import log, logUser
 
@@ -14,4 +14,3 @@ def commandFunction(tree, client):
         await interaction.channel.send(message)
         
         log(f"(SUCCESS) {interaction.user} used /say on {interaction.user.guild} ({interaction.user.guild.id})")
-

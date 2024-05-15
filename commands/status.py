@@ -3,7 +3,7 @@ from discord.app_commands import allowed_contexts, allowed_installs
 from util.resources import users
 from util.functions import log, logUser
 from datetime import date, datetime
-from subprocess import Popen, PIPE, run
+from subprocess import Popen, PIPE
 
 def commandFunction(tree, client):
     @tree.command(name= "status", description="Display the bot's status")

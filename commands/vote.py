@@ -1,5 +1,5 @@
 from discord import Interaction, Embed, ButtonStyle
-from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
+from discord.app_commands import allowed_contexts, allowed_installs
 from discord.ui import Button, View
 from util.functions import log, logUser
 

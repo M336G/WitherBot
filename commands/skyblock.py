@@ -1,22 +1,30 @@
 from discord import Interaction, Embed
-from discord.app_commands import allowed_contexts, allowed_installs, Group
+from discord.app_commands import Group, AppInstallationType, AppCommandContext
 from util.functions import log, logUser
 from requests import get as requestGet
 from random import randint
-def commandFunction(tree, client):
-    group = Group(name="skyblock",description="Various SkyBlock util commands")
 
+def commandFunction(tree, client):
+    group = Group(
+        name="skyblock",
+        description="Various SkyBlock util commands",
+        allowed_installs = AppInstallationType(guild=True, user= True),
+        allowed_contexts = AppCommandContext(guild=True, dm_channel=True, private_channel=True)
+    )
+    
     @group.command(name= "ehp", description= "Calculate your EHP in SkyBlock")
     async def skyblockEhpCommand(interaction: Interaction, health: int, defense: int):
         logUser(interaction.user.id)
         await interaction.response.send_message(" ",embed=Embed(title=" ",description=f"**Your EHP is {health*(1+defense/100)}** ({health} ❤ Health and {defense} ❈ Defense)", colour=2067276))
         log(f"(SUCCESS) {interaction.user} used /skyblock ehp")
+
     @group.command(name= "damage_reduction", description= "Calculate your Damage Reduction percentage in SkyBlock")
     async def skyblockDamageReductionCommand(interaction: Interaction, defense: int):
         logUser(interaction.user.id)
         embed = Embed(title=" ",description=f"**Your Damage Reduction percentage is {round(defense/(defense+100)*100,2)}%** ({defense} ❈ Defense)", colour=2067276)
         await interaction.response.send_message(" ",embed=embed)
         log(f"(SUCCESS) {interaction.user} used /skyblock damage_reduction")
+
     @group.command(name= "regeneration", description= "Calculate your Base Health/Mana Regeneration in SkyBlock")
     async def skyblockBaseHpRegenerationCommand(interaction: Interaction, health: int = 0, mana: int = 0):
         if (health == 0 and mana == 0) or (health != 0 and mana != 0) or (health < 0 or mana < 0):
@@ -27,6 +35,7 @@ def commandFunction(tree, client):
         embed = Embed(title=" ",description=f"**Your {'Mana' if health == 0 else 'Health'} Regeneration rate is {base_regeneration} {f'✎ Mana/s** ({mana} ✎ Mana)' if health == 0 else f'❤ Health/s** ({health} ❤ Health)'}", colour=3131390 if health == 0 else 15548997)
         await interaction.response.send_message(" ",embed=embed)
         log(f"(SUCCESS) {interaction.user} used /skyblock regeneration")
+
     @group.command(name= "dungeons_requirement", description= "Show the Catacombs Level Requirements in SkyBlock")
     async def skyblockDungeonsRequirementsCommand(interaction: Interaction):
         logUser(interaction.user.id)

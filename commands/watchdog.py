@@ -1,5 +1,5 @@
 from discord import Interaction, Embed
-from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
+from discord.app_commands import allowed_contexts, allowed_installs
 from util.functions import log, logUser
 from requests import get as requestGet
 from util.resources import api_key
