@@ -1,6 +1,6 @@
 from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
-from util.functions import log, logUser
+from util.functions import log, logUser, permissionCheck
 
 def commandFunction(tree, client):    
     @tree.command(name= "kick", description= "Kick someone from your Discord server")
@@ -15,42 +15,28 @@ def commandFunction(tree, client):
 
             log(f"(FAIL) {interaction.user} tried to KICK himself on {interaction.user.guild} ({interaction.user.guild.id})")
             return
-        elif 1039238934682665030 == user.id:
+        if 1039238934682665030 == user.id:
             embed = Embed(title=" ",description="<:x:1039888272761049179> **You cannot kick me!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
 
             log(f"(FAIL) {interaction.user} tried to KICK the bot on {interaction.user.guild} ({interaction.user.guild.id})")
             return
-        else:
+        if permissionCheck(user, interaction, ":x: **You cannot kick this user!**", f"(FAIL) {interaction.user} tried to KICK an admin/user with higher privileges ({user.id}) on {interaction.user.guild} ({interaction.user.guild.id})"):
+            return
+        try:
+            await interaction.response.defer()
+            await user.kick(reason=reason)
             try:
-                if reason == None:
-                    try:
-                        embed = Embed(title=f"**You have been kicked from ``{interaction.guild.name}``!**",description="", colour=15548997)
-                        await user.send(" ",embed=embed)
-                    except:
-                        embed2 = Embed(title="")
-                    await interaction.channel.send(" ",embed=embed)
-                    await user.kick(reason=reason)
-                    embed = Embed(title=" ",description=f"**``{user}`` has been kicked from the server!**", colour=2067276)
-                    await interaction.response.send_message(" ",embed=embed)
-                    await interaction.channel.send(" ",embed=embed2)
-
-                    log(f"(SUCCESS) {interaction.user} has KICKED {user} on {interaction.user.guild} ({interaction.user.guild.id})")
-                else:
-                    try:
-                        embed = Embed(title=f"**You have been kicked from ``{interaction.guild.name}``!**\n``Reason: {reason}``",description="", colour=15548997)
-                        await user.send(" ",embed=embed)
-                    except:
-                        embed2 = Embed(title="")
-                    await user.kick(reason=reason)
-                    embed = Embed(title=" ",description=f"**``{user}`` has been kicked from the server!**\n**``Reason: {reason}``**", colour=2067276)
-                    await interaction.response.send_message(" ",embed=embed)
-                    await interaction.channel.send(" ",embed=embed2)
-
-                    log(f"(SUCCESS) {interaction.user} has KICKED {user} on {interaction.user.guild} ({interaction.user.guild.id}) and gave a reason")
-            
+                embed = Embed(title=f"**You have been kicked from ``{interaction.guild.name}``!**{f'\n``Reason: {reason}``' if reason != None else ''}",description="", colour=15548997)
+                await user.send(" ",embed=embed)
             except:
-                embed = Embed(title=" ",description="<:x:1039888272761049179> **An error occurred**", colour=15548997)
-                await interaction.response.send_message(" ",embed=embed)
+                await interaction.channel.send(" ",embed=Embed(description=f":x: Unable to send to user", colour=15548997))
+            embed = Embed(title=" ",description=f"**``{user}`` has been kicked from the server!**{f'\n**``Reason: {reason}``**' if reason != None else ''}", colour=2067276)
+            await interaction.followup.send(" ",embed=embed)
 
-                log(f"(FAIL) {interaction.user} has failed using the /kick command")
+            log(f"(SUCCESS) {interaction.user} has KICKED {user} on {interaction.user.guild} ({interaction.user.guild.id}){' and gave a reason' if reason != None else ''}")
+        except:
+            embed = Embed(title=" ",description="<:x:1039888272761049179> **An error occurred**", colour=15548997)
+            await interaction.followup.send(" ",embed=embed)
+
+            log(f"(FAIL) {interaction.user} has failed using the /kick command")

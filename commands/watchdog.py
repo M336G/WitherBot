@@ -10,6 +10,7 @@ def commandFunction(tree, client):
     @allowed_installs(guilds=True, users=True)
     @allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def watchdogCommand(interaction: Interaction):
+        await interaction.response.defer()
         logUser(interaction.user.id)
         res = requestGet(
             url="https://api.hypixel.net/punishmentstats",
@@ -23,30 +24,30 @@ def commandFunction(tree, client):
             embed.set_thumbnail(url=f"https://yt3.googleusercontent.com/ytc/AIf8zZSv_62EYjr0w3lqr0PydI8vBsdscbUlMCYyWghH6g=s176-c-k-c0x00ffffff-no-rj")
             embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")
             embed.timestamp = datetime.now()
-            await interaction.response.send_message(" ", embed=embed)
+            await interaction.followup.send(" ", embed=embed)
 
             log(f"(SUCCESS) {interaction.user} used /watchdog")
                 
         elif res["success"] == False:
             if res["cause"] == "Invalid API key":
                 embed = Embed(title=" ",description=":x: **Couldn't connect to the Hypixel API. Please try again in a few moments.**",colour=15548997)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                await interaction.followup.send(" ",embed=embed, ephemeral=True)
 
                 log(f"(FAIL) {interaction.user} failed to use the /watchdog command (Invalid API Key)")
 
             elif res["cause"] == "Key throttle":
                 embed = Embed(title=" ",description=":x: **Too much requests. Please try again in a few moments.**",colour=15548997)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                await interaction.followup.send(" ",embed=embed, ephemeral=True)
 
                 log(f"(FAIL) {interaction.user} failed to use the /watchdog command (Key throttle)")
 
             elif res["cause"] == "Leaderboard data has not yet been populated":
                 embed = Embed(title=" ",description=":x: **Data has not been published yet. Please try again in a few moments.**",colour=15548997)
-                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                await interaction.followup.send(" ",embed=embed, ephemeral=True)
 
                 log(f"(FAIL) {interaction.user} failed to use the /watchdog command (Leaderboard data has not yet been populated)")
         else:
             embed = Embed(title=" ",description=":x: **Something went wrong. Please try again in a few moments.**",colour=15548997)
-            await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+            await interaction.followup.send(" ",embed=embed, ephemeral=True)
             
             log(f"(FAIL) {interaction.user} failed to use the /watchdog command")
