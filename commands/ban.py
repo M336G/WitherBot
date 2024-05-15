@@ -8,7 +8,6 @@ def commandFunction(tree, client):
     @allowed_contexts(guilds=True, dms=False, private_channels=True)
     @default_permissions(ban_members = True)
     async def banCommand(interaction: Interaction, user: Member, reason:str = None):
-        logUser(interaction.user.id)
         if interaction.user.id == user.id:
             embed = Embed(title=" ",description=f"**You cannot <:gregban:1039247298808520794> ban yourself!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
