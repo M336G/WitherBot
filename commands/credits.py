@@ -11,15 +11,15 @@ def commandFunction(tree, client):
     async def creditsCommand(interaction: Interaction):
         logUser(interaction.user.id)
         embed = Embed(title="Credits",description=f" ",colour=8359053)
-        embed.add_field(name=" ", value="**<@1039238934682665030> has been created by <@629711559899217950>**", inline=False)
-        embed.add_field(name="Special Thanks", value="Special thanks to <@795048346955677748> for giving me the idea to create the bot and <@589349861493833751> for helping me optimize the code!", inline=False)
+        embed.add_field(name=" ", value="**<@1039238934682665030> was created by <@629711559899217950>**", inline=False)
+        embed.add_field(name="Special Thanks", value="Special thanks to <@795048346955677748>, <@589349861493833751> and <@553105447746535436> for helping me with the code!", inline=False)
         embed.add_field(name="Thanks", value="Thanks to <@793225807874883584> and <@472042883763929098> for helping me fixing bugs!", inline=False)
 
         view = View()
 
-        button = Button(label='Vote for the bot on top.gg', style=ButtonStyle.url, url='https://top.gg/bot/1039238934682665030/vote')
+        button = Button(label="Vote for the bot on top.gg", style=ButtonStyle.url, url="https://top.gg/bot/1039238934682665030/vote")
         view.add_item(button)
-        button = Button(label='Invite the bot on your server', style=ButtonStyle.url, url='https://discord.com/api/oauth2/authorize?client_id=1039238934682665030&permissions=1099780130822&scope=bot')
+        button = Button(label="Invite the bot on your server", style=ButtonStyle.url, url="https://discord.com/oauth2/authorize?client_id=1039238934682665030")
         view.add_item(button)
 
         embed.set_footer(text=f"{client.user.name}", icon_url=f"{client.user.avatar}")

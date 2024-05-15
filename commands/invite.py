@@ -10,7 +10,7 @@ def commandFunction(tree, client):
     async def inviteCommand(interaction: Interaction):
         logUser(interaction.user.id)
         embed = Embed(title=" ",description="**Click the button below to add the bot to your server!**")
-        button = Button(label='Invite the bot on your server!', style=ButtonStyle.url, url='https://discord.com/api/oauth2/authorize?client_id=1039238934682665030&permissions=1099780130822&scope=bot')
+        button = Button(label='Invite the bot on your server!', style=ButtonStyle.url, url='https://discord.com/oauth2/authorize?client_id=1039238934682665030')
         view = View()
         view.add_item(button)
         await interaction.response.send_message(" ",embed=embed, view=view)
