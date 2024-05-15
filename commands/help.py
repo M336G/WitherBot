@@ -31,10 +31,9 @@ def commandFunction(tree:CommandTree, client):
                 
                 commandsDetails[elt.name] = {"description": elt.description, "id": id}
 
-        generalCommandList = ["hello", "ping", "credits", "status", "youtube", "vote", "random_number"]
-        moderationCommandList = [ "ban", "kick", "say", "addrole", "removerole", "timeout", "unmute"]
-        hypixelCommandList = ["skyblock_ehp", "skyblock_damage_reduction", "skyblock_true_damage_reduction", "skyblock_base_hp_regeneration", "skyblock_dungeons_requirement", "skyblock_random_item","player", "watchdog"] 
-        minecraftCommandList = [ "modrinth", "minecraft_random_item", "minecraft_random_block"]
+        generalCommandList = ["hello", "ping", "credits", "status", "youtube", "vote", "random"]
+        moderationCommandList = [ "ban", "kick", "say", "timeout", "unmute", "role"]
+        minecraftCommandList = ["modrinth", "skyblock", "player", "watchdog"]
 
         def getFieldContentCommand(name:str):
             response:list = [f"/{name}", "", False]
@@ -66,19 +65,14 @@ def commandFunction(tree:CommandTree, client):
         embed.add_field(name="\n__Moderation__", value="", inline=False)
         addFieldToEmbed(embed, moderationCommandList)
 
-        embed2 = Embed(title=" ",description="")
-        embed2.add_field(name="\n__Hypixel / Skyblock__", value="", inline=False)
-        addFieldToEmbed(embed2, hypixelCommandList)
-
-        embed2.add_field(name="\n__Minecraft__", value="", inline=False)
-        addFieldToEmbed(embed2, minecraftCommandList)
+        embed.add_field(name="\n__Minecraft__", value="", inline=False)
+        addFieldToEmbed(embed, minecraftCommandList)
 
         button = Button(label='Vote for the bot on top.gg', style=ButtonStyle.url, url='https://top.gg/bot/1039238934682665030/vote')
         button2 = Button(label='Invite the bot on your server', style=ButtonStyle.url, url='https://discord.com/api/oauth2/authorize?client_id=1039238934682665030&permissions=1099780130822&scope=bot')
         view = View()
         view.add_item(button)
         view.add_item(button2)
-        await interaction.response.send_message(" ",embeds=(embed, embed2))
-        #await interaction.channel.send(" ",embed=embed2, view=view)
+        await interaction.response.send_message(" ",embed=embed)
 
         log(f"(SUCCESS) {interaction.user} used /help")
