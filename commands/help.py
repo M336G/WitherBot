@@ -1,5 +1,5 @@
 from discord import Interaction, Embed, ButtonStyle 
-from discord.app_commands import ContextMenu, CommandTree, allowed_contexts, allowed_installs
+from discord.app_commands import ContextMenu, CommandTree, allowed_contexts, allowed_installs, AppCommand
 from discord.ui import Button, View
 from util.functions import log, logUser
 
@@ -13,7 +13,7 @@ def commandFunction(tree:CommandTree, client):
         logUser(interaction.user.id)
         if len(commandsDetails) <= 0:
             #D Give an array of all commands
-            commands:[] = await tree.fetch_commands()
+            commands:list[AppCommand] = await tree.fetch_commands()
             if commands == None:
                 commands = tree.get_commands()
             for elt in commands:
@@ -37,7 +37,7 @@ def commandFunction(tree:CommandTree, client):
         minecraftCommandList = [ "modrinth", "minecraft_random_item", "minecraft_random_block"]
 
         def getFieldContentCommand(name:str):
-            response:[] = [f"/{name}", "", False]
+            response:list = [f"/{name}", "", False]
 
             command = commandsDetails[name]
             if not(command == None): 
@@ -55,7 +55,7 @@ def commandFunction(tree:CommandTree, client):
 
         def addFieldToEmbed(embed, commandList): 
             for commandName in commandList:
-                commandAttribute:[] = getFieldContentCommand(commandName)
+                commandAttribute:list = getFieldContentCommand(commandName)
                 embed.add_field(name=commandAttribute[0], value=commandAttribute[1], inline=commandAttribute[2])
 
 

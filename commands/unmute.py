@@ -1,6 +1,6 @@
 from discord import Interaction, Embed, Member
 from discord.app_commands import default_permissions, allowed_contexts, allowed_installs
-from util.functions import log, logUser
+from util.functions import log, logUser, permissionCheck
 from datetime import timedelta
 
 def commandFunction(tree, client):
@@ -10,6 +10,12 @@ def commandFunction(tree, client):
     @default_permissions(moderate_members = True)
     async def unmuteCommand(interaction:Interaction, user:Member):
         logUser(interaction.user.id)
+        if await permissionCheck(user, interaction, ":x: **You cannot unmute that user!**", f"(FAIL) {interaction.user} tried to UNMUTE an admin/user with higher privileges ({user.id}) on {interaction.user.guild} ({interaction.user.guild.id})"):
+            return
+        if not user.is_timed_out():
+            await interaction.response.send_message(embed=Embed(description=":x: **That user is not muted!**", colour=15548997))
+            log(f"(FAIL) {interaction.user} tried to UNMUTE a not muted user on {interaction.user.guild} ({interaction.user.guild.id})")
+            return
         days = 0
         hours = 0
         minutes = 0
