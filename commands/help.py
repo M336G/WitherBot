@@ -31,7 +31,7 @@ def commandFunction(tree:CommandTree, client):
                 
                 commandsDetails[elt.name] = {"description": elt.description, "id": id}
 
-        generalCommandList = ["hello", "ping", "credits", "status", "youtube", "vote", "random"]
+        generalCommandList = ["hello", "ping", "credits", "status", "youtube", "httpcat", "vote", "random"]
         moderationCommandList = [ "ban", "kick", "say", "timeout", "unmute", "role"]
         minecraftCommandList = ["modrinth", "skyblock", "player", "watchdog"]
 
