@@ -15,7 +15,7 @@ def commandFunction(tree, client):
             await interaction.response.send_message(" ",embed=embed)
             
 
-            log(f"(FAIL) {interaction.user} tried to MUTE himself on {interaction.user.guild} ({interaction.user.guild.id})")
+            log(f"(FAIL) {interaction.user} tried to MUTE themselves on {interaction.user.guild} ({interaction.user.guild.id})")
             return
         if 1039238934682665030 == user.id:
             embed = Embed(title=" ",description=f":x: **You cannot mute me!**", colour=15548997)

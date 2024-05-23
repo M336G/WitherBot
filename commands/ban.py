@@ -13,7 +13,7 @@ def commandFunction(tree, client):
             embed = Embed(title=" ",description=f"**You cannot <:gregban:1039247298808520794> ban yourself!**", colour=15548997)
             await interaction.response.send_message(" ",embed=embed)
 
-            log(f"(FAIL) {interaction.user} tried to BAN himself on {interaction.user.guild} ({interaction.user.guild.id})")
+            log(f"(FAIL) {interaction.user} tried to BAN themselves on {interaction.user.guild} ({interaction.user.guild.id})")
             return
         if 1039238934682665030 == user.id:
             embed = Embed(title=" ",description=f"**You cannot <:gregban:1039247298808520794> ban me!**", colour=15548997)
