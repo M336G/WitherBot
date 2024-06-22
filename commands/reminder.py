@@ -1,3 +1,7 @@
+from discord import Interaction, Embed
+from discord.app_commands import Group, AppInstallationType, AppCommandContext
+from util.functions import log, logUser
+
 @bot.slash_command(name='reminder', description='test')
 async def reminderCommand(interaction: Interaction, time, text):
     time = int(time)
