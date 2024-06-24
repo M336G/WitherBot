@@ -4,7 +4,7 @@ attrs==23.2.0
 certifi==2024.2.2
 charset-normalizer==3.3.2
 discord-together==1.2.6
-discord.py @ git+https://github.com/Rapptz/discord.py@08b138cc71fea5594c068082ee565a05cde2c7fa
+discord.py==2.4.0
 frozenlist==1.4.1
 idna==3.7
 multidict==6.0.5
